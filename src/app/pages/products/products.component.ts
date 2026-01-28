@@ -8,7 +8,7 @@ import { Product } from '../../models/product';
   selector: 'app-products',
   standalone: true,
   imports: [CommonModule, ReactiveFormsModule],
-  templateUrl: './products.component.html'
+  templateUrl: './products.component.html',
 })
 export class ProductsComponent implements OnInit {
 
@@ -20,6 +20,8 @@ export class ProductsComponent implements OnInit {
   showViewModal = signal(false);
   editing = signal(false);
   productView = signal<Product | null>(null);
+  username = '';
+  role = '';
 
   selectedId: number | null = null;
 
@@ -27,16 +29,19 @@ export class ProductsComponent implements OnInit {
     sku: new FormControl(''),
     nombre: new FormControl(''),
     precio: new FormControl(0),
-    cantidad: new FormControl(0)
+    cantidad: new FormControl(0),
   });
 
   ngOnInit() {
-    this.load();
+    this.username = localStorage.getItem('username') ?? '';
+    this.role = localStorage.getItem('role') ?? '';
+
+    this.loadProducts();
   }
 
-  load() {
+  loadProducts() {
     this.productService.getAll().subscribe({
-      next: (data) => this.products.set(data)
+      next: (data) => this.products.set(data),
     });
   }
 
@@ -47,7 +52,7 @@ export class ProductsComponent implements OnInit {
       sku: '',
       nombre: '',
       precio: 0,
-      cantidad: 0
+      cantidad: 0,
     });
     this.showFormModal.set(true);
   }
@@ -59,7 +64,7 @@ export class ProductsComponent implements OnInit {
       sku: p.sku,
       nombre: p.nombre,
       precio: p.precio,
-      cantidad: p.cantidad
+      cantidad: p.cantidad,
     });
     this.showFormModal.set(true);
   }
@@ -68,7 +73,7 @@ export class ProductsComponent implements OnInit {
     this.productView.set(null);
     this.showViewModal.set(true);
     this.productService.getById(id).subscribe({
-      next: (data) => this.productView.set(data)
+      next: (data) => this.productView.set(data),
     });
   }
 
@@ -79,15 +84,15 @@ export class ProductsComponent implements OnInit {
 
   save() {
     const payload = this.form.value as Product;
-    const request = this.editing() 
+    const request = this.editing()
       ? this.productService.update(this.selectedId!, payload)
       : this.productService.create(payload);
 
     request.subscribe({
       next: () => {
-        this.load();
+        this.loadProducts();
         this.closeAll();
-      }
+      },
     });
   }
 
@@ -95,9 +100,9 @@ export class ProductsComponent implements OnInit {
     if (this.selectedId) {
       this.productService.delete(this.selectedId).subscribe({
         next: () => {
-          this.load();
+          this.loadProducts();
           this.closeAll();
-        }
+        },
       });
     }
   }
@@ -109,5 +114,13 @@ export class ProductsComponent implements OnInit {
     this.editing.set(false);
     this.productView.set(null);
     this.selectedId = null;
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    localStorage.removeItem('username');
+    localStorage.removeItem('role');
+
+    window.location.reload();
   }
 }

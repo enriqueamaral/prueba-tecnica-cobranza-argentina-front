@@ -1,11 +1,39 @@
 <div class="card">
-  <div class="card-header d-flex justify-content-between">
+
+  <!-- HEADER -->
+  <div class="card-header d-flex justify-content-between align-items-center">
+
     <h4>Inventario</h4>
-    <button class="btn btn-primary" (click)="openNew()">Nuevo Producto</button>
+
+    <div class="d-flex gap-2 align-items-center">
+
+      <span class="fw-bold">
+        {{ username }}
+      </span>
+
+      @if (role === 'ROLE_ADMIN') {
+        <button
+          class="btn btn-primary"
+          (click)="openNew()">
+          Nuevo Producto
+        </button>
+      }
+
+      <button
+        class="btn btn-outline-danger btn-sm"
+        (click)="logout()">
+        Cerrar sesión
+      </button>
+
+    </div>
+
   </div>
 
+  <!-- BODY -->
   <div class="card-body">
+
     <table class="table table-bordered table-hover">
+
       <thead>
         <tr>
           <th>SKU</th>
@@ -15,111 +43,258 @@
           <th>Acciones</th>
         </tr>
       </thead>
+
       <tbody>
-        @for (p of products(); track p.id) {
+
+        @for (p of products(); track p) {
+
           <tr>
             <td>{{ p.sku }}</td>
             <td>{{ p.nombre }}</td>
             <td>{{ p.precio }}</td>
             <td>{{ p.cantidad }}</td>
+
             <td>
-              <button class="btn btn-info btn-sm me-1" (click)="openView(p.id!)">Ver</button>
-              <button class="btn btn-warning btn-sm me-1" (click)="openEdit(p)">Editar</button>
-              <button class="btn btn-danger btn-sm" (click)="openDelete(p.id!)">Eliminar</button>
+
+              <button
+                class="btn btn-info btn-sm me-1"
+                (click)="openView(p.id!)">
+                Ver
+              </button>
+
+              @if (role === 'ROLE_ADMIN') {
+
+                <button
+                  class="btn btn-warning btn-sm me-1"
+                  (click)="openEdit(p)">
+                  Editar
+                </button>
+
+                <button
+                  class="btn btn-danger btn-sm"
+                  (click)="openDelete(p.id!)">
+                  Eliminar
+                </button>
+
+              }
+
+            </td>
+
+          </tr>
+
+        } @empty {
+
+          <tr>
+            <td colspan="5" class="text-center">
+              No hay productos disponibles
             </td>
           </tr>
-        } @empty {
-          <tr>
-            <td colspan="5" class="text-center">No hay productos disponibles</td>
-          </tr>
+
         }
+
       </tbody>
+
     </table>
+
   </div>
+
 </div>
 
+
+<!-- MODAL FORM -->
+
 @if (showFormModal()) {
-  <div class="modal d-block" style="background: rgba(0,0,0,0.5)">
+
+  <div class="modal d-block" style="background: rgba(0, 0, 0, 0.5)">
+
     <div class="modal-dialog">
+
       <div class="modal-content">
+
         <div class="modal-header">
-          <h5>{{ editing() ? 'Editar' : 'Nuevo' }} Producto</h5>
-          <button class="btn-close" (click)="closeAll()"></button>
+
+          <h5>
+            {{ editing() ? 'Editar' : 'Nuevo' }} Producto
+          </h5>
+
+          <button
+            class="btn-close"
+            (click)="closeAll()">
+          </button>
+
         </div>
+
         <div class="modal-body">
+
           <form [formGroup]="form">
+
             <div class="mb-2">
               <label>SKU</label>
-              <input class="form-control" formControlName="sku">
+              <input
+                class="form-control"
+                formControlName="sku" />
             </div>
+
             <div class="mb-2">
               <label>Nombre</label>
-              <input class="form-control" formControlName="nombre">
+              <input
+                class="form-control"
+                formControlName="nombre" />
             </div>
+
             <div class="mb-2">
               <label>Precio</label>
-              <input type="number" class="form-control" formControlName="precio">
+              <input
+                type="number"
+                class="form-control"
+                formControlName="precio" />
             </div>
+
             <div class="mb-2">
               <label>Cantidad</label>
-              <input type="number" class="form-control" formControlName="cantidad">
+              <input
+                type="number"
+                class="form-control"
+                formControlName="cantidad" />
             </div>
+
           </form>
+
         </div>
+
         <div class="modal-footer">
-          <button class="btn btn-secondary" (click)="closeAll()">Cancelar</button>
-          <button class="btn btn-success" (click)="save()">Guardar</button>
+
+          <button
+            class="btn btn-secondary"
+            (click)="closeAll()">
+            Cancelar
+          </button>
+
+          <button
+            class="btn btn-success"
+            (click)="save()">
+            Guardar
+          </button>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
+
 }
 
+
+<!-- MODAL VIEW -->
+
 @if (showViewModal()) {
-  <div class="modal d-block" style="background: rgba(0,0,0,0.5)">
+
+  <div class="modal d-block" style="background: rgba(0, 0, 0, 0.5)">
+
     <div class="modal-dialog">
+
       <div class="modal-content">
+
         <div class="modal-header">
+
           <h5>Detalle del Producto</h5>
-          <button class="btn-close" (click)="closeAll()"></button>
+
+          <button
+            class="btn-close"
+            (click)="closeAll()">
+          </button>
+
         </div>
+
         <div class="modal-body">
+
           @if (productView()) {
+
             <p><strong>SKU:</strong> {{ productView()?.sku }}</p>
             <p><strong>Nombre:</strong> {{ productView()?.nombre }}</p>
             <p><strong>Precio:</strong> {{ productView()?.precio }}</p>
             <p><strong>Cantidad:</strong> {{ productView()?.cantidad }}</p>
+
           } @else {
+
             <div class="text-center">
+
               <div class="spinner-border spinner-border-sm"></div>
+
               <p>Cargando...</p>
+
             </div>
+
           }
+
         </div>
+
         <div class="modal-footer">
-          <button class="btn btn-secondary" (click)="closeAll()">Cerrar</button>
+
+          <button
+            class="btn btn-secondary"
+            (click)="closeAll()">
+            Cerrar
+          </button>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
+
 }
 
+
+<!-- MODAL DELETE -->
+
 @if (showDeleteModal()) {
-  <div class="modal d-block" style="background: rgba(0,0,0,0.5)">
+
+  <div class="modal d-block" style="background: rgba(0, 0, 0, 0.5)">
+
     <div class="modal-dialog modal-sm">
+
       <div class="modal-content">
+
         <div class="modal-header">
+
           <h5>Eliminar Producto</h5>
-          <button class="btn-close" (click)="closeAll()"></button>
+
+          <button
+            class="btn-close"
+            (click)="closeAll()">
+          </button>
+
         </div>
+
         <div class="modal-body">
           ¿Seguro que deseas eliminar este producto?
         </div>
+
         <div class="modal-footer">
-          <button class="btn btn-secondary" (click)="closeAll()">Cancelar</button>
-          <button class="btn btn-danger" (click)="confirmDelete()">Eliminar</button>
+
+          <button
+            class="btn btn-secondary"
+            (click)="closeAll()">
+            Cancelar
+          </button>
+
+          <button
+            class="btn btn-danger"
+            (click)="confirmDelete()">
+            Eliminar
+          </button>
+
         </div>
+
       </div>
+
     </div>
+
   </div>
+
 }
