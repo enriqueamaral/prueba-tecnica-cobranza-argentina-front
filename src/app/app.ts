@@ -1,11 +1,11 @@
 import { Component, signal } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
-import { ProductsComponent } from "./pages/products/products.component";
+import { RouterOutlet } from "@angular/router";
 
 @Component({
   selector: 'app-root',
-  imports: [ HttpClientModule, FormsModule, ProductsComponent],
+  imports: [HttpClientModule, FormsModule, RouterOutlet],
   templateUrl: './app.html',
   styleUrl: './app.css',
   standalone: true
