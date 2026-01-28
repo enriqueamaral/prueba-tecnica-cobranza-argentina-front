@@ -1,9 +1,9 @@
 # prueba-tecnica-cobranza-argentina-front
 prueba tecnica para el puesto de desarrollador jr
 
-🖥️ Frontend - Cobranza Argentina (Angular)
+ Frontend - Cobranza Argentina (Angular)
 
-📌 Descripción
+ Descripción
 
 Aplicación web desarrollada con Angular para consumir la API del backend y permitir:
 
@@ -13,7 +13,7 @@ Visualizar y gestionar productos
 
 Manejar autenticación y autorización con JWT
 
-🚀 Características
+ Características
 
 Autenticación (login)
 
@@ -25,17 +25,15 @@ Formularios reactivos con validaciones
 
 Consumo de API RESTful
 
-🧰 Tecnologías
+ Tecnologías
 
-⚙️ Angular CLI 21
+ Angular CLI 21
 
-📌 TypeScript
+ TypeScript
 
-📌 RxJS
+ HTML / CSS
 
-📌 HTML / CSS
-
-📥 Instalación
+ Instalación
 
 git clone https://github.com/enriqueamaral/prueba-tecnica-cobranza-argentina-front
 
@@ -50,7 +48,7 @@ Luego abre:
 
 http://localhost:4200/
 
-📁 Estructura del Proyecto
+ Estructura del Proyecto
 
 src/app/
 
@@ -66,7 +64,7 @@ src/app/
 
 ├── pages/
 
-📌 Componentes Principales
+ Componentes Principales
 
 LoginComponent
 
@@ -82,7 +80,7 @@ Data binding
 
 Event binding
 
-📡 Services
+ Services
 
 Servicios para comunicación con backend:
 
@@ -92,7 +90,7 @@ ProductService → CRUD productos
 
 Usan HttpClient para peticiones HTTP.
 
-🔒 Autenticación
+ Autenticación
 
 AuthService
 
@@ -106,19 +104,19 @@ Logout
 
 Almacena el token en localStorage.
 
-🛡️ Guards
+ Guards
 
 Protectores de rutas (AuthGuard) para evitar acceso sin token:
 
 canActivate()
 
-🔁 Interceptors
+ Interceptors
 
 Interceptor para adjuntar el token JWT en cada petición:
 
 Authorization: Bearer <token>
 
-📋 Formularios
+ Formularios
 
 Se utilizan formularios reactivos con validaciones:
 
@@ -126,10 +124,10 @@ campos required
 
 validaciones personalizadas
 
-🗺️ Routing
+ Routing
 
 Define rutas de la SPA y rutas protegidas.
 
-📄 Notas Finales
+ Notas Finales
 
 Proyecto Angular estructurado para escalar fácilmente y con separación clara de responsabilidades.
