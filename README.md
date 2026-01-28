@@ -60,8 +60,6 @@ src/app/
 
 ├── interceptors/
 
-├── models/
-
 ├── pages/
 
  Componentes Principales
@@ -69,8 +67,6 @@ src/app/
 LoginComponent
 
 ProductsComponent
-
-ProductFormComponent
 
 Cada componente usa:
 
