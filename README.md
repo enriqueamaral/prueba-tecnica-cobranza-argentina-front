@@ -1,59 +1,135 @@
-# PruebaTecnica
+# prueba-tecnica-cobranza-argentina-front
+prueba tecnica para el puesto de desarrollador jr
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.1.0.
+🖥️ Frontend - Cobranza Argentina (Angular)
 
-## Development server
+📌 Descripción
 
-To start a local development server, run:
+Aplicación web desarrollada con Angular para consumir la API del backend y permitir:
 
-```bash
+Autenticación de usuarios
+
+Visualizar y gestionar productos
+
+Manejar autenticación y autorización con JWT
+
+🚀 Características
+
+Autenticación (login)
+
+Guardias de ruta para proteger vistas
+
+Interceptors para enviar token automáticamente
+
+Formularios reactivos con validaciones
+
+Consumo de API RESTful
+
+🧰 Tecnologías
+
+⚙️ Angular CLI 21
+
+📌 TypeScript
+
+📌 RxJS
+
+📌 HTML / CSS
+
+📥 Instalación
+
+git clone https://github.com/enriqueamaral/prueba-tecnica-cobranza-argentina-front
+
+cd prueba-tecnica-cobranza-argentina-front
+
+npm install
+
 ng serve
-```
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
 
-## Code scaffolding
+Luego abre:
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+http://localhost:4200/
 
-```bash
-ng generate component component-name
-```
+📁 Estructura del Proyecto
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+src/app/
 
-```bash
-ng generate --help
-```
+├── components/
 
-## Building
+├── services/
 
-To build the project run:
+├── guards/
 
-```bash
-ng build
-```
+├── interceptors/
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+├── models/
 
-## Running unit tests
+├── pages/
 
-To execute unit tests with the [Vitest](https://vitest.dev/) test runner, use the following command:
+📌 Componentes Principales
 
-```bash
-ng test
-```
+LoginComponent
 
-## Running end-to-end tests
+ProductsComponent
 
-For end-to-end (e2e) testing, run:
+ProductFormComponent
 
-```bash
-ng e2e
-```
+Cada componente usa:
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+@Component
 
-## Additional Resources
+Data binding
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Event binding
+
+📡 Services
+
+Servicios para comunicación con backend:
+
+AuthService → login, logout
+
+ProductService → CRUD productos
+
+Usan HttpClient para peticiones HTTP.
+
+🔒 Autenticación
+
+AuthService
+
+Gestiona:
+
+Login
+
+Guardado del JWT
+
+Logout
+
+Almacena el token en localStorage.
+
+🛡️ Guards
+
+Protectores de rutas (AuthGuard) para evitar acceso sin token:
+
+canActivate()
+
+🔁 Interceptors
+
+Interceptor para adjuntar el token JWT en cada petición:
+
+Authorization: Bearer <token>
+
+📋 Formularios
+
+Se utilizan formularios reactivos con validaciones:
+
+campos required
+
+validaciones personalizadas
+
+🗺️ Routing
+
+Define rutas de la SPA y rutas protegidas.
+
+📄 Notas Finales
+
+Proyecto Angular estructurado para escalar fácilmente y con separación clara de responsabilidades.
